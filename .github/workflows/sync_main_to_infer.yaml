@@ -12,36 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout main branch
-        uses: actions/checkout@v3
-        with:
-          ref: main
-
-      - name: Set up git
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - name: Copy inference folder
-        run: |
-          mkdir -p temp_inference
-          cp -r inference/* temp_inference/
-
-      - name: Checkout inference branch
-        run: |
-          git checkout inference
-
-      - name: Remove old inference folder
-        run: |
-          rm -rf inference
-          mkdir -p inference
-
-      - name: Copy new inference folder
-        run: |
-          cp -r temp_inference/* inference/
-
-      - name: Commit and push changes
-        run: |
-          git add inference
-          git commit -m "Update inference folder from main branch"
-          git push origin inference
+      - uses: actions/checkout@v4
+  
+      - name: Copy To Branches Action
+        uses: planetoftheweb/copy-to-branches@v1
+        env:
+          key: main
+          branches: inference
+          files: inference/
