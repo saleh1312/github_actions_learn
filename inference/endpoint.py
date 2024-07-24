@@ -1,1 +1,1 @@
-print("fuck you")
+print("koko you")
