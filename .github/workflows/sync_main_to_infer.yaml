@@ -18,8 +18,8 @@ jobs:
       
       - name: copy
         env:
-          SRC_FOLDER_PATH: 'static'
-          TARGET_BRANCH: 'dest'
+          SRC_FOLDER_PATH: 'inference'
+          TARGET_BRANCH: 'inference'
         run: |
           files=$(find $SRC_FOLDER_PATH -type f) # get the file list
           git config --global user.name 'GitHub Action'
