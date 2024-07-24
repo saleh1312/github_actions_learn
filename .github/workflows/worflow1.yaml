@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'inference/**'
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
