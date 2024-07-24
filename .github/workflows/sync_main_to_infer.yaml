@@ -8,16 +8,25 @@ on:
       - 'inference/**'
 
 jobs:
+
   sync-inference:
+  
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Copy To Branches Action
-        uses: planetoftheweb/copy-to-branches@v1
+      
+      - name: copy
         env:
-          key: main
-          branches: inference
-          files: inference/endpoint.py
+          SRC_FOLDER_PATH: 'static'
+          TARGET_BRANCH: 'dest'
+        run: |
+          files=$(find $SRC_FOLDER_PATH -type f) # get the file list
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git fetch                         # fetch branches
+          git checkout $TARGET_BRANCH       # checkout to your branch
+          git checkout ${GITHUB_REF##*/} -- $files # copy files from the source branch
+          git add -A
+          git diff-index --quiet HEAD ||  git commit -am "deploy files"  # commit to the repository (ignore if no modification)
+          git push origin $TARGET_BRANCH # push to remote branch
