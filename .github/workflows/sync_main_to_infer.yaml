@@ -29,7 +29,7 @@ jobs:
       - name: Checkout inference branch
         run: |
           git fetch
-          git checkout inference
+          git checkout production
 
       - name: paste copies in inference
         run: cp -r temp_inference/* inference/
@@ -39,4 +39,4 @@ jobs:
         run: |
           git add .
           git commit -m "Update inference folder from main branch"
-          git push origin inference
+          git push origin production
