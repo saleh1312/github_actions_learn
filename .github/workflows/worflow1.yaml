@@ -6,6 +6,7 @@ on:
       - main
     paths-ignore:
       - 'inference/**'
+      - '.github/workflows/**'
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
