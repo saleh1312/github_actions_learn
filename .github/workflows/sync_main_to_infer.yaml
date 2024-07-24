@@ -38,6 +38,9 @@ jobs:
       - name: paste copies in inference
         run: cp -r temp_inference/* inference/
 
+      - name: remove temp directory
+        run: rm -rf temp_inference
+
       
       - name: Commit and push changes
         run: |
