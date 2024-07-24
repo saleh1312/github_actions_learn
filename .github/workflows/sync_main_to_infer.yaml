@@ -19,4 +19,4 @@ jobs:
         env:
           key: main
           branches: inference
-          files: inference/
+          files: inference/endpoint.py
