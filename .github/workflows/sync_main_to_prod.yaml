@@ -10,16 +10,13 @@ on:
 permissions:
   contents: write
 
-
 jobs:
-
   sync-inference:
-  
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up git
         run: |
           git config --global user.name 'GitHub Action'
@@ -30,18 +27,25 @@ jobs:
           mkdir -p temp_inference
           cp -r inference/* temp_inference/
 
-      - name: Checkout inference branch
+      - name: Stash changes
+        run: |
+          git stash -u
+
+      - name: Checkout production branch
         run: |
           git fetch
           git checkout production
 
-      - name: paste copies in inference
+      - name: Apply stashed changes
+        run: |
+          git stash pop
+
+      - name: Paste copied files into inference folder
         run: cp -r temp_inference/* inference/
 
-      - name: remove temp directory
+      - name: Remove temporary directory
         run: rm -rf temp_inference
 
-      
       - name: Commit and push changes
         run: |
           git add .
